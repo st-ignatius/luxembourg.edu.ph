@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11 STEM LUXEMBOURG</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #0A1931; /* Dark Navy Blue */
+            --secondary-color: #00FFFF; /* Electric Blue/Cyan - Neon Color */
+            --accent-color: #FFFFFF;
+            --text-color: #CCCCCC;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-image: radial-gradient(circle, #1c325c 1px, transparent 1px);
+            background-size: 40px 40px;
+            scroll-behavior: smooth;
+        }
+
+        /* Headings and Texts */
+        h1, h2, h3 {
+            color: var(--accent-color);
+        }
+        
+        /* --- NAVIGATION BAR --- */
+        #navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: rgba(10, 25, 49, 0.95);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color); 
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: var(--secondary-color);
+            letter-spacing: 2px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s, text-shadow 0.3s;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        nav a:hover, nav a.active {
+            color: var(--secondary-color) !important;
+            text-shadow: 0 0 8px var(--secondary-color); 
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+        }
+        .hero-section h1 {
+            font-size: 4.5em;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+        .neon-text {
+            color: var(--secondary-color);
+            text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color);
+        }
+        .hero-section p {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+        }
+        #explore-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 50px; /* Pill shape for modern look */
+            box-shadow: 0 0 20px var(--secondary-color); 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        #explore-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--secondary-color), 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        .content-section {
+            padding: 100px 5%;
+            text-align: center;
+            min-height: 70vh;
+            border-top: 1px solid rgba(40, 70, 100, 0.5); 
+        }
+        .content-section h2 {
+            font-size: 3em;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .content-section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+            margin: 15px auto 0;
+            box-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        /* --- ABOUT SECTION SPECIFIC --- */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+        .principle-card {
+            background-color: #1c325c; 
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+        }
+        .principle-card h3 {
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .principle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--secondary-color); 
+        }
+        
+        /* --- MEMBERS SECTION SPECIFIC --- */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+        }
+        .member-card {
+            background-color: #1c325c;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .member-card:hover {
+            background-color: #2e4a7a;
+        }
+        .member-photo {
+            width: 100px;
+            height: 100px;
+            background-color: #555; /* Placeholder for Photo */
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+        .member-card h4 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+        .member-card p {
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #000;
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 5px solid var(--secondary-color);
+        }
+        .social-links a {
+            color: var(--secondary-color);
+            margin: 0 15px;
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="logo">11 STEM LUXEMBOURG</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">Mission</a>
+            <a href="#projects">Projects</a>
+            <a href="#members">Innovators</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero-section">
+        <h1>Welcome to <span class="neon-text">11 STEM LUXEMBOURG</span></h1>
+        <p>The Future of Science and Innovation starts here.</p>
+        <button id="explore-btn">Discover Our Innovations</button>
+    </section>
+
+    <section id="about" class="content-section">
+        <h2>Our Core Mission</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <h3>L - Logic & Leadership</h3>
+                <p>We cultivate critical thinking and assume leadership roles in scientific challenges.</p>
+            </div>
+            <div class="principle-card">
+                <h3>U - Unity & Understanding</h3>
+                <p>Through collaboration, we gain a deeper understanding of complex subjects.</p>
+            </div>
+            <div class="principle-card">
+                <h3>X - X-Factor Excellence</h3>
+                <p>We strive for extraordinary results in every project, setting a new standard for STEM.</p>
+            </div>
+            <div class="principle-card">
+                <h3>E - Engineering & Elegance</h3>
+                <p>Combining precise engineering with aesthetic and elegant solutions, inspired by Luxembourg's style.</p>
+            </div>
+            <div class="principle-card">
+                <h3>M - Mastery & Methodology</h3>
+                <p>Applying rigorous scientific methods to achieve mastery in our chosen fields.</p>
+            </div>
+            <div class="principle-card">
+                <h3>B - Breakthroughs & Brilliance</h3>
+                <p>Fostering an environment that encourages innovative breakthroughs and brilliant ideas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="content-section">
+        <h2>🚀 Featured STEM Projects</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <h3>Project Fusion</h3>
+                <p>A deep dive into renewable energy sources and fusion reactor modeling. *Status: Research Phase*</p>
+            </div>
+            <div class="principle-card">
+                <h3>LuxTech Robotics</h3>
+                <p>Designing and programming a self-navigating robot using advanced sensor technology. *Status: Development*</p>
+            </div>
+            <div class="principle-card">
+                <h3>Digital Ecosystem</h3>
+                <p>Developing a secure and efficient local network system using Python and Java. *Status: Complete*</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="members" class="content-section">
+        <h2>🎓 Meet the Future Innovators</h2>
+        <div class="members-grid">
+            <div class="member-card">
+                <div class="member-photo"></div>
+                <h4>Juan Dela Cruz</h4>
+                <p>Team Lead / Engineering</p>
+            </div>
+            <div class="member-card">
+                <div class="member-photo"></div>
+                <h4>Maria Santos</h4>
+                <p>Head of Research / Science</p>
+            </div>
+            <div class="member-card">
+                <div class="member-photo"></div>
+                <h4>Chris Garcia</h4>
+                <p>Lead Programmer / Technology</p>
+            </div>
+            </div>
+    </section>
+
+    <footer id="contact">
+        <p>Get in touch with us and follow our journey!</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/11STEMLUXEMBOURG" target="_blank">Facebook 🔗</a>
+            <a href="#">Email 📧</a>
+            <a href="#">Instagram 📸</a>
+        </div>
+        <p>&copy; 2025 11 STEM LUXEMBOURG. Crafted with Code and Innovation.</p>
+    </footer>
+
+    <script>
+        // Feature 1: Smooth Scrolling para sa "Explore" button
+        document.getElementById('explore-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Scroll to the 'about' section
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Feature 2: Mag-highlight ng active section sa navigation bar
+        const sections = document.querySelectorAll('.content-section, .hero-section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            // Hanapin kung aling section ang nasa view ng user
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Check if the current scroll position is within the section area
+                if (pageYOffset >= sectionTop - 150) { 
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // I-update ang active class sa navigation links
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
