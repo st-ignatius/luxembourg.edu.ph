@@ -17,6 +17,10 @@
       --card:white;
       --bg:linear-gradient(180deg,#f6fbff,#f3f7fb);
       font-family:'Poppins',sans-serif;
+
+      --modal-bg: rgba(0,0,0,0.45);
+      --modal-card-bg: rgba(255,255,255,0.96);
+      --modal-blur: blur(12px);
     }
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:#0b1220;overflow-x:hidden}
@@ -30,44 +34,33 @@
     .flag img{width:100%;height:100%;object-fit:cover}
     h1.title{margin:0;font-size:20px;font-weight:800;color:var(--lux-red);letter-spacing:.5px}
 
-    /* NAVIGATION & MENU TOGGLE */
-    
-    /* DEFAULT (DESKTOP) VIEW: Menu links are visible, Toggle button is hidden */
+    /* NAVIGATION & MENU */
     nav ul{display:flex;list-style:none;margin:0;padding:0;gap:12px}
     nav a{text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;color:#0a2744}
     nav a:hover{background:rgba(0,119,200,0.07)}
 
-    /* Itago ang Hamburger Menu Button sa Desktop */
     #menu-toggle {
-        display: none; 
-        background: transparent;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        padding: 0;
-        color: var(--lux-blue);
-        font-weight: 800;
-        line-height: 1;
-        width: 30px;
-        height: 30px;
-        align-items: center;
-        justify-content: center;
+        display:none;
+        background:transparent;border:0;font-size:24px;
+        color:var(--lux-blue);cursor:pointer;
+        width:32px;height:32px;
     }
-
 
     /* HERO */
     .hero{padding:26px 0}
     .hero-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 14px 38px rgba(0,0,0,0.08)}
     .carousel{display:flex;transition:transform .6s ease}
     .slide{min-width:100%;height:460px;background:#ddd}
-    .slide img{width:100%;height:100%;object-fit:cover;display:block}
+    .slide img{width:100%;height:100%;object-fit:cover}
 
-    /* overlay bottom */
-    .overlay{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6));padding:26px 30px;color:white}
+    .overlay{
+      position:absolute;left:0;right:0;bottom:0;
+      padding:26px 30px;color:white;
+      background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6));
+    }
     .overlay h2{margin:0;font-size:26px;font-weight:800;text-shadow:0 4px 16px rgba(0,0,0,.4)}
-    .overlay p{margin:8px 0 16px;color:rgba(255,255,255,0.92);max-width:600px}
-    .overlay .cta{display:flex;gap:12px}
-    .btn{padding:10px 16px;font-weight:700;border-radius:10px;border:0;cursor:pointer}
+    .overlay p{margin:8px 0 16px;color:rgba(255,255,255,0.92)}
+    .btn{padding:10px 16px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
     .btn.blue{background:var(--lux-blue);color:white}
 
     /* DOTS */
@@ -77,68 +70,72 @@
 
     /* MAIN */
     main.section{padding:22px 0}
-    .info-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:28px;padding:0 16px}
+    .info-grid{max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr 320px;gap:28px;padding:0 16px}
     .card{background:white;border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
 
     /* ADVISOR */
     .advisor{display:flex;gap:14px;align-items:center}
     .photo{width:110px;height:110px;border-radius:50%;overflow:hidden;border:4px solid rgba(0,119,200,0.15)}
     .photo img{width:100%;height:100%;object-fit:cover}
-    .advisor h3{margin:0;font-size:20px;font-weight:700}
-    .advisor p{margin:6px 0;color:var(--muted)}
 
-    /* CONTACT */
-    .contact a{color:var(--lux-blue);font-weight:700;text-decoration:none}
+    footer{text-align:center;color:var(--muted);padding:20px;font-size:14px;margin-top:20px}
 
-    footer{text-align:center;color:var(--muted);font-size:14px;margin-top:20px;padding:20px}
+    /* LOGIN FLOATING MODAL */
+    .modal-bg{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:var(--modal-bg);backdrop-filter:var(--modal-blur);
+      display:none;align-items:center;justify-content:center;
+      z-index:999;
+    }
+    .modal{
+      width:340px;background:var(--modal-card-bg);
+      padding:22px;border-radius:16px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.15);
+      animation:pop .28s ease;
+      position:relative;
+    }
+    @keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+    .modal h2{margin-top:0;font-weight:800;color:#0a2744}
+    .modal input{
+      width:100%;padding:10px;margin-top:10px;
+      border-radius:8px;border:1px solid #cbd5e1;font-size:14px;
+    }
+    .modal button{margin-top:16px;width:100%;padding:10px;border-radius:8px}
+    .modal .close{
+      position:absolute;top:10px;right:12px;font-size:22px;
+      cursor:pointer;color:#333;
+    }
+    .error{
+      color:var(--lux-red);
+      font-size:13px;
+      margin-top:8px;
+      text-align:center;
+      display:none;
+    }
 
-    /* MOBILE BREAKPOINT (<= 800px) */
-    @media(max-width: 800px){
+    /* REFRESH WARNING MODAL */
+    .refresh-modal .modal{
+      width:360px;
+    }
+
+    @media(max-width:800px){
+      nav ul{flex-direction:column}
+      #menu-toggle{display:block}
+      nav#main-nav{
+        position:absolute;top:100%;right:0;width:100%;
+        background:white;border-radius:0 0 14px 14px;
+        max-height:0;overflow:hidden;transition:max-height .4s;
+      }
+      nav#main-nav.open{max-height:500px}
+      nav a{display:block;padding:12px 16px}
       .slide{height:340px}
       .info-grid{grid-template-columns:1fr}
-      .overlay {padding:20px}
-      .brand h1.title{font-size:18px}
-      
-      /* RESPONSIVE MENU STYLES */
-      /* Ipalabas ang Hamburger Menu Button sa Mobile */
-      #menu-toggle {
-        display: flex; 
-      }
-      
-      /* Itago ang Menu Links sa Mobile */
-      nav#main-nav {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        background: var(--card);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border-radius: 0 0 14px 14px;
-        overflow: hidden;
-        max-height: 0; 
-        transition: max-height 0.4s ease-out;
-      }
-      nav#main-nav.open {
-        max-height: 500px; 
-      }
-
-      nav ul {
-        flex-direction: column; 
-        padding: 10px 16px 20px;
-      }
-      nav ul li {
-        width: 100%;
-      }
-      nav a {
-        display: block;
-        padding: 12px 16px;
-        border-radius: 6px;
-      }
     }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
     <div class="container nav">
       <div class="brand">
@@ -148,27 +145,26 @@
           <div style="font-size:12px;color:var(--muted)">St. Ignatius Cabuyao Campus</div>
         </div>
       </div>
-      
-      <button id="menu-toggle" aria-expanded="false" aria-controls="main-nav">
-          &#9776; </button>
+
+      <button id="menu-toggle">&#9776;</button>
 
       <nav id="main-nav">
         <ul id="nav-links">
-          <li><a href="" data-href="index">Home</a></li>  
-          <li><a href="" data-href="activities">Activities</a></li>
-          <li><a href="" data-href="events">Events</a></li>
-          <li><a href="" data-href="subjects">Subjects</a></li>
-          <li><a href="" data-href="officers">Officers</a></li>
-          <li><a href="" data-href="cleaners">Cleaners</a></li>
-        </ul>
-      </nav>
+          <li><a href="#" data-href="luxembourg.html">Home</a></li>
+          <li><a href="#" data-href="activities.html">Activities</a></li>
+          <li><a href="#" data-href="events.html">Events</a></li>
+          <li><a href="#" data-href="subjects.html">Subjects</a></li>
+          <li><a href="#" data-href="officers.html">Officers</a></li>
+          <li><a href="#" data-href="cleaners.html">Cleaners</a></li>
+        </ul></nav>
     </div>
   </header>
 
+  <!-- HERO -->
   <section class="container hero">
     <div class="hero-wrap" id="hero-wrap">
       <div class="carousel" id="carousel">
-        <div class="slide"><img src="https://scontent-mnl3-3.xx.fbcdn.net/v/t39.30808-6/556836611_122132388788944611_8711233474746333576_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zF0waWwQsFgQ7kNvwEj-K1E&_nc_oc=Adm4jvLtYw_aTcjfb2zKa16-AIBb8kVWRQ_PiVLgt3WDdeH-880Jw8WndE4dtbb1Bys&_nc_zt=23&_nc_ht=scontent-mnl3-3.xx&_nc_gid=8FN0azQq00hoU8gaxkVZig&oh=00_Afjev-aBbmWI6ksr90i3dWbgj2hhLhW1Y_hQzIXsFgUQ3Q&oe=6920AAF9"></div>
+         <div class="slide"><img src="https://scontent-mnl3-3.xx.fbcdn.net/v/t39.30808-6/556836611_122132388788944611_8711233474746333576_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zF0waWwQsFgQ7kNvwEj-K1E&_nc_oc=Adm4jvLtYw_aTcjfb2zKa16-AIBb8kVWRQ_PiVLgt3WDdeH-880Jw8WndE4dtbb1Bys&_nc_zt=23&_nc_ht=scontent-mnl3-3.xx&_nc_gid=8FN0azQq00hoU8gaxkVZig&oh=00_Afjev-aBbmWI6ksr90i3dWbgj2hhLhW1Y_hQzIXsFgUQ3Q&oe=6920AAF9"></div>
         <div class="slide"><img src="https://scontent-mnl1-2.xx.fbcdn.net/v/t39.30808-6/559898235_122132388854944611_3846708131221650000_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=lLn1EwI0U2oQ7kNvwEcipNa&_nc_oc=AdmLbeAiqpOVjWcKxk3IWKbLtleRsrPjawCh0Cbila19i7RY5oPpntBHPO2LuiiP8ZU&_nc_zt=23&_nc_ht=scontent-mnl1-2.xx&_nc_gid=ioq7HSHSVqkkpWCvbqZOAg&oh=00_AfgWJxoR2-bqFZWOFeD_f46VQWEuhaywj78jt3Lr_W8pBQ&oe=69208967"></div>
         <div class="slide"><img src="https://scontent-mnl3-3.xx.fbcdn.net/v/t1.15752-9/582259497_1171701937791037_9202574166212190335_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ePMcRL1dclsQ7kNvwEUXdz0&_nc_oc=Admdox6BnvYFMaMz-wf5PHMUXtH7EtAvXtkM7wp0tbS4UDz6HvKfw4AUbzzsRuhCc_M&_nc_zt=23&_nc_ht=scontent-mnl3-3.xx&oh=03_Q7cD3wHeQYgQPkb9AwrJWzjhSiUirp17ENoLbBGYPXw3aDQ-oA&oe=69422B13"></div>
       </div>
@@ -177,7 +173,7 @@
         <h2>Welcome to STEM Luxembourg Website</h2>
         <p>The official website of Grade 11 STEM section Luxembourg in St. Ignatius Cabuyao Campus.</p>
         <div class="cta">
-          <button class="btn blue" id="btn-activities">LOGIN</button>
+          <button class="btn blue" id="loginBtn">LOGIN</button>
         </div>
       </div>
 
@@ -185,19 +181,19 @@
     </div>
   </section>
 
+  <!-- MAIN CONTENT -->
   <main class="section">
     <div class="info-grid">
 
       <div>
         <div class="card">
-          <h3 style="margin-top:0">About Our Section</h3>
+          <h3>About Our Section</h3>
           <p class="muted">Luxembourg is a STEM section made up of hardworking and talented students. On this page, you'll find our activities, events, subjects, and officers.</p>
         </div>
 
-        <div style="height:20px"></div>
+        <br>
 
-
-      <aside>
+        <aside>
         <div class="card">
           <div class="advisor">
             <div class="photo">
@@ -212,71 +208,166 @@
         </div>
       </aside>
 
-           <br>
+        <br>
 
-      <div class="card">
+        <div class="card">
           <h3>Contact & Location</h3>
           <p class="muted">Follow us and Message us on Facebook: <a href="https://facebook.com/11STEMLUXEMBOURG" target="_blank">facebook.com/11stemluxembourg</a></p>
           <p class="muted">Visit our room: Building B, Room 204, St. Ignatius Cabuyao Campus, Banay-Banay, Cabuyao, Laguna.</p>
         </div>
       </div>
 
-       <aside>
+      <aside>
         <div class="card">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d287.4204847440079!2d121.12922489038972!3d14.250090748412319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e9!4m0!4m3!3m2!1d14.250125528420385!2d121.12921611870932!5e0!3m2!1sen!2sph!4v1763386384180!5m2!1sen!2sph" width="280" height="340" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d287.4204847440079!2d121.12922489038972!3d14.250090748412319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e9!4m0!4m3!3m2!1d14.250125528420385!2d121.12921611870932!5e0!3m2!1sen!2sph!4v1763386384180!5m2!1sen!2sph"
+            width="100%" height="340"
+            style="border:0;border-radius:12px"
+            allowfullscreen loading="lazy">
+          </iframe>
         </div>
       </aside>
 
     </div>
 
     <footer>
-      Development by student of Luxembourg <p class="muted"><a href="#" data-href="data-privacy.html">Data & Privacy</a></p> @2025-2026
+      Development by student of Luxembourg
+      <p class="muted"><a href="#" data-href="data-privacy.html">Data & Privacy</a></p>
+      @2025–2026
     </footer>
   </main>
 
-  <script>
-    // OPEN LINKS IN NEW TAB
-    document.querySelectorAll('a[data-href]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        e.preventDefault();window.open(a.dataset.href,'_blank');
-      });
-    });
-    document.getElementById('btn-activities').onclick=()=>window.open('activities.html','_blank');
+  <!-- LOGIN MODAL -->
+  <div class="modal-bg" id="loginModal">
+    <div class="modal">
+      <div class="close" id="closeLogin">&times;</div>
+      <h2>LOGIN</h2>
 
-    // CAROUSEL
-    const carousel=document.getElementById('carousel');
-    const slides=document.querySelectorAll('.slide');
-    const pager=document.getElementById('pager');
-    let idx=0;
-    function go(i){idx=(i+slides.length)%slides.length;carousel.style.transform=`translateX(${-idx*100}%)`;updateDots();}
-    function updateDots(){pager.innerHTML='';slides.forEach((s,i)=>{const d=document.createElement('div');d.className='dot'+(i===idx?' active':'');d.onclick=()=>go(i);pager.appendChild(d);});}
-    setInterval(()=>go(idx+1),4500);
-    updateDots();
-    go(0);
-    
-    // RESPONSIVE MENU TOGGLE
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
-    const navLinks = document.getElementById('nav-links');
+      <input type="text" id="user" placeholder="Student Reference Number">
+      <input type="password" id="pass" placeholder="Password">
 
-    menuToggle.addEventListener('click', () => {
-        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
-        menuToggle.setAttribute('aria-expanded', !isExpanded);
-        
-        // I-toggle ang 'open' class
-        mainNav.classList.toggle('open');
-    });
+      <div class="error" id="loginError">Incorrect username or password.</div>
 
-    // Isara ang menu kapag pinindot ang isang link (sa mobile)
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 800) {
-                mainNav.classList.remove('open');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-    });
+      <button class="btn blue" id="loginSubmit">LOGIN</button>
+    </div>
+  </div>
 
-  </script>
+  <!-- REFRESH WARNING MODAL -->
+  <div class="modal-bg refresh-modal" id="refreshModal">
+    <div class="modal">
+      <div class="close" id="closeRefresh">&times;</div>
+      <h2>Warning</h2>
+      <p style="font-size:14px;margin-top:6px;">
+        If you refresh this website, your account will automatically logout.
+        Please click REFRESH to continue refreshing.
+      </p>
+      <button class="btn blue" id="refreshOK">REFRESH</button>
+    </div>
+  </div>
+
+<script>
+/* OPEN LINKS */
+document.querySelectorAll('a[data-href]').forEach(a=>{
+  a.onclick=e=>{e.preventDefault();window.open(a.dataset.href,'_blank');}
+});
+
+/* CAROUSEL LOGIC */
+const carousel=document.getElementById('carousel');
+const slides=document.querySelectorAll('.slide');
+const pager=document.getElementById('pager');
+let idx=0;
+function go(i){idx=(i+slides.length)%slides.length;carousel.style.transform=`translateX(${-idx*100}%)`;renderDots();}
+function renderDots(){
+  pager.innerHTML="";
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===idx?' active':'');
+    d.onclick=()=>go(i);
+    pager.appendChild(d);
+  });
+}
+setInterval(()=>go(idx+1),4500);
+renderDots();
+
+/* MOBILE MENU */
+const menuToggle=document.querySelector('#menu-toggle');
+const mainNav=document.querySelector('#main-nav');
+menuToggle.onclick=()=>mainNav.classList.toggle('open');
+
+/* LOGIN SYSTEM */
+const loginBtn=document.getElementById('loginBtn');
+const loginModal=document.getElementById('loginModal');
+const loginClose=document.getElementById('closeLogin');
+const loginSubmit=document.getElementById('loginSubmit');
+const loginError=document.getElementById('loginError');
+
+function openLogin(){loginModal.style.display='flex';}
+function closeLogin(){loginModal.style.display='none';}
+
+loginBtn.onclick=openLogin;
+loginClose.onclick=closeLogin;
+
+function logout(){
+  localStorage.removeItem('logged');
+  loginBtn.textContent="LOGIN";
+}
+
+function login(){
+  const user = document.getElementById('user').value.trim();
+  const pass = document.getElementById('pass').value.trim();
+
+  const accounts = [
+    { username: "#093", password: "aldrin1234" },
+    { username: "#034", password: "adano034" },
+    { username: "#001", password: "mireyromero" },
+    { username: "#027", password: "nina027" }
+  ];
+
+  // CHECKING
+  const found = accounts.find(acc => acc.username === user && acc.password === pass);
+
+  if(found){
+    localStorage.setItem('logged','yes');
+    loginBtn.textContent="LOGOUT";
+    loginError.style.display='none';
+    closeLogin();
+  } else {
+    loginError.style.display='block';
+  }
+}
+
+loginSubmit.onclick=login;
+
+loginBtn.addEventListener('click',()=>{
+  if(localStorage.getItem('logged')==="yes"){
+    logout();
+  } else {
+    openLogin();
+  }
+});
+
+/* REFRESH WARNING */
+let allowRefresh=false;
+const refreshModal=document.getElementById('refreshModal');
+const refreshOK=document.getElementById('refreshOK');
+const refreshClose=document.getElementById('closeRefresh');
+
+window.onbeforeunload=function(e){
+  if(localStorage.getItem('logged')==="yes" && !allowRefresh){
+    refreshModal.style.display='flex';
+    e.preventDefault();
+    return "";
+  }
+}
+
+refreshOK.onclick=function(){
+  allowRefresh=true;
+  location.reload();
+}
+refreshClose.onclick=function(){
+  refreshModal.style.display='none';
+}
+</script>
+
 </body>
 </html>
