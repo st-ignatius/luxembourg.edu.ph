@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Group Chat App</title>
+<style>
+  @font-face {
+    font-family: 'Pumpkins';
+    src: url('https://fonts.gstatic.com/s/gaegu/v7/TuGfUVV7bH8BB8SdZQ.ttf');
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    font-family: 'Pumpkins', sans-serif;
+    color: white;
+  }
+  .login-box, .chat-box {
+    width: 380px;
+    padding: 25px;
+    margin: 80px auto;
+    background: #0a0f25;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #0af;
+  }
+  h2 {
+    text-align: center;
+    color: #7ecbff;
+  }
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #009dff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+  }
+  .message-btn {
+    display: block;
+    margin: 30px auto;
+    width: 220px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: #005bbb;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00aaff;
+  }
+  .chat-header {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #87d6ff;
+  }
+  .messages {
+    height: 350px;
+    overflow-y: auto;
+    background: #04132b;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px #003f7f;
+  }
+  .msg {
+    padding: 10px 14px;
+    margin: 10px 0;
+    background: #0e4d92;
+    border-radius: 12px;
+    width: fit-content;
+    max-width: 80%;
+  }
+  .mine {
+    background: #008cff;
+    margin-left: auto;
+  }
+  .input-area {
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  .input-area input {
+    flex: 1;
+  }
+  .input-area button {
+    width: 90px;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-box" id="loginBox">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="mainMenu" style="display:none; text-align:center; margin-top:100px;">
+  <div class="message-btn" onclick="openChat()">Enter Group Chat</div>
+</div>
+
+<div class="chat-box" id="chatBox" style="display:none;">
+  <div class="chat-header">Group Chat</div>
+  <div class="messages" id="messages"></div>
+  <div class="input-area">
+    <input type="text" id="msgInput" placeholder="Type message...">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script>
+  // All accounts allowed
+  const accounts = {
+    "12345": "12345",
+    "11111": "11111",
+    "22222": "22222",
+    "33333": "33333",
+    "44444": "44444",
+    "9876": "9876",
+    "8765": "8765",
+    "7654": "7654",
+    "6543": "6543"
+  };
+
+  let currentUser = null;
+
+  // LOGIN FUNCTION
+  function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    if (accounts[user] && accounts[user] === pass) {
+      currentUser = user;
+      localStorage.setItem('loggedUser', user);
+
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('mainMenu').style.display = 'block';
+    } else {
+      alert('Invalid login');
+    }
+  }
+
+  // ENTER GROUP CHAT
+  function openChat() {
+    document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('chatBox').style.display = 'block';
+
+    loadMessages(); // load ALL saved messages
+  }
+
+  // SEND MESSAGE (SAVE TO LOCAL STORAGE SHARED)
+  function sendMsg() {
+    let txt = document.getElementById('msgInput').value;
+    if (!txt) return;
+
+    let logs = JSON.parse(localStorage.getItem('groupMessages') || '[]');
+
+    logs.push({
+      user: currentUser,
+      text: txt,
+      time: Date.now()
+    });
+
+    localStorage.setItem('groupMessages', JSON.stringify(logs));
+
+    document.getElementById('msgInput').value = '';
+    loadMessages();
+  }
+
+  // LOAD ALL MESSAGES (VISIBLE TO ALL ACCOUNTS)
+  function loadMessages() {
+    let logs = JSON.parse(localStorage.getItem('groupMessages') || '[]');
+    let msgBox = document.getElementById('messages');
+
+    msgBox.innerHTML = '';
+
+    logs.forEach(m => {
+      let div = document.createElement('div');
+      div.className = 'msg';
+      if (m.user === currentUser) div.classList.add('mine');
+
+      div.innerText = m.user + ': ' + m.text;
+      msgBox.appendChild(div);
+    });
+
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
