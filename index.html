@@ -270,11 +270,11 @@
   </div>
 
 <script>
-/* OPEN LINKS (same tab) */
-document.querySelectorAll('a[data-href]').forEach(a=>{
+/* OPEN LINKS — open in SAME TAB */
+document.querySelectorAll('a[data-href]').forEach(a => {
   a.onclick = e => {
     e.preventDefault();
-    location.href = a.dataset.href; 
+    window.location.href = a.dataset.href; // SAME TAB
   };
 });
 
