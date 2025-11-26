@@ -352,12 +352,13 @@
   </footer>
 
   <script>
-    // OPEN LINKS IN NEW TAB
-    document.querySelectorAll('a[data-href]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        e.preventDefault();window.open(a.dataset.href,'_blank');
-      });
-    });
+    /* OPEN LINKS — open in SAME TAB */
+document.querySelectorAll('a[data-href]').forEach(a => {
+  a.onclick = e => {
+    e.preventDefault();
+    window.location.href = a.dataset.href; // SAME TAB
+  };
+});
     
     // RESPONSIVE MENU TOGGLE
     const menuToggle = document.getElementById('menu-toggle');
