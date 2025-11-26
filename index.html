@@ -270,9 +270,12 @@
   </div>
 
 <script>
-/* OPEN LINKS */
+/* OPEN LINKS (same tab) */
 document.querySelectorAll('a[data-href]').forEach(a=>{
-  a.onclick=e=>{e.preventDefault();window.open(a.dataset.href,'_blank');}
+  a.onclick = e => {
+    e.preventDefault();
+    location.href = a.dataset.href; 
+  };
 });
 
 /* CAROUSEL LOGIC */
